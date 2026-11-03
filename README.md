@@ -4,7 +4,15 @@
 
 ## Contexte
 
-✏️ *En cinq à huit phrases : qui utilise l'outil (son métier, son geste professionnel), son besoin, ce qu'il saisit, ce que le programme lui affiche, ce que l'outil ne fait pas.*
+✏️ *La responsable d'une exploitation maraîchère pédagogique suit au quotidien les interventions sur ses parcelles : semis, repiquage, arrosage, désherbage et récolte. Jusqu'à présent, elle notait tout dans un carnet papier. Les oublis, les recherches longues et l'impossibilité de totaliser rapidement les dépenses par parcelle lui font perdre du temps.
+
+Elle a besoin d'un outil simple en ligne de commande pour :
+- saisir une opération (identifiant, date, parcelle, culture, type d'opération, coût en FCFA) ;
+- retrouver une intervention par identifiant, par parcelle ou par culture ;
+- trier les opérations par coût ou par date ;
+- obtenir une synthèse des dépenses (total général, détail par parcelle, coût minimum et maximum).
+
+
 
 ## Prérequis et lancement
 
@@ -23,22 +31,34 @@ Sous PowerShell, si `npm` est bloqué : `npm.cmd test`.
 
 ✏️ *Cochez seulement ce qui marche : `- [x]`.*
 
-- [ ] Données lues et enregistrées dans `donnees/operations.json`
-- [ ] Ajouter une opération, saisies invalides refusées sans arrêter le programme
-- [ ] Lister les opérations, message si le registre est vide
-- [ ] Rechercher par identifiant ou par parcelle ; filtrer par culture
-- [ ] Trier par coût ou par date
-- [ ] Synthèse : total, nombre et total par parcelle, coût minimum et maximum
-- [ ] Bonus : supprimer et modifier une opération (choix 6 et 7)
-- [ ] Bonus : tri par coût décroissant, parcelle la plus coûteuse
+- [x ] Données lues et enregistrées dans `donnees/operations.json`
+- [ x] Ajouter une opération, saisies invalides refusées sans arrêter le programme
+- [x ] Lister les opérations, message si le registre est vide
+- [x ] Rechercher par identifiant ou par parcelle ; filtrer par culture
+- [x ] Trier par coût ou par date
+- [x ] Synthèse : total, nombre et total par parcelle, coût minimum et maximum
+- [x ] Bonus : supprimer et modifier une opération (choix 6 et 7)
+- [x ] Bonus : tri par coût décroissant, parcelle la plus coûteuse
 
 ## Données
 
-✏️ *Le fichier, le nombre d'opérations, les champs (voir [docs/dictionnaire-donnees.md](docs/dictionnaire-donnees.md)), les unités. Rappelez qu'elles sont fictives.*
-
+✏️ *Champ      Exemple         Unité / format
+     id          O03          texte unique
+     date     2026-10-21      AAAA-MM-JJ 
+    parcelle    P1            texte
+    culture    tomate         texte
+    operation  arrosage    une des 5 opérations autorisées
+    coutFCFA    2000         nombre ≥ 0, en francs CFA
 ## Limites
 
-✏️ *Au moins trois. Par exemple : le registre enregistre des dépenses, pas les revenus, il ne mesure donc pas la rentabilité.*
+1-Le registre enregistre uniquement des dépenses, pas les revenus → il ne mesure pas la rentabilité.
+2-Aucun contrôle de cohérence entre parcelle et culture (ex. P1 + gombo est accepté).
+3-Pas d'historique des modifications ni de multi-utilisateurs.
+4-Unité monétaire figée en FCFA (pas de conversion).
+5-Interface en ligne de commande uniquement (pas d'interface graphique).
+6-Les identifiants et parcelles sont normalisés en majuscules, les cultures et opérations en minuscules à la saisie.
+
+
 
 ## Documents
 
@@ -47,3 +67,4 @@ Sous PowerShell, si `npm` est bloqué : `npm.cmd test`.
 ## Auteur
 
 ✏️ *Prénom NOM, compte GitHub. Entraide : avec qui, sur quoi.*
+Ismael AMUSA? marcisamel98-code, toutes l'equipe du proget 1 sur le codage et anglovia et abdallah

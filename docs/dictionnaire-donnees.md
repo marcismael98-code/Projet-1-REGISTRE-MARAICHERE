@@ -10,6 +10,7 @@
 |`operation` |intervention humaine | string |liste fermee uniquement |une des 5 valeurs |`arrosage` |
 |`coutFCFA` | Depense enregistree | number | nombre >=0 | francs cfa | `3000` |
 
-**Listes de valeurs autorisées** : ✏️
 
-**Sources** : ✏️
+**Listes de valeurs autorisées** : '(`formaterOperation; listerOperation; trouverparId; creerOperation; ajouterOperation`)
+
+**Sources** : `brief 1 registre des operation maraichere\src\registre.js`
