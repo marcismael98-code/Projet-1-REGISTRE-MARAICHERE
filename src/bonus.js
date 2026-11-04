@@ -11,8 +11,14 @@ export const CHAMPS_MODIFIABLES = ['date', 'parcelle', 'culture', 'operation', '
 // Supprime du registre l'opération qui a cet identifiant.
 // Renvoie l'opération supprimée, ou undefined si elle n'existe pas (le registre ne change pas).
 export function supprimerOperation(operations, id) {
-  throw new Error('TODO Bonus : coder supprimerOperation dans src/bonus.js');
+  const index = operations.findIndex((op) => op.id === id);
+  if (index === -1) {
+    return undefined;
+  }
+  const [supprimee] = operations.splice(index, 1);
+  return supprimee;
 }
+
 
 // Modifie UN champ d'une opération. La nouvelle valeur arrive sous forme de TEXTE et suit
 // les mêmes règles qu'à l'ajout. Renvoie les erreurs : [] si la modification est faite ;
@@ -20,8 +26,60 @@ export function supprimerOperation(operations, id) {
 // Erreurs : identifiant introuvable · champ 'id' (non modifiable) · champ absent de CHAMPS_MODIFIABLES
 //           · valeur refusée par les règles de l'ajout.
 export function modifierOperation(operations, id, champ, valeur) {
-  throw new Error('TODO Bonus : coder modifierOperation dans src/bonus.js');
+  if (champ === 'id') {
+    erreurs.push("L'identifiant n'est pas modifiable.");
+    return erreurs;
+  }
+
+  if (!CHAMPS_MODIFIABLES.includes(champ)) {
+    erreurs.push(`Le champ « ${champ} » n'est pas modifiable.`);
+    return erreurs;
+  }
+
+  const operation = trouverParId(operations, id);
+  if (!operation) {
+    erreurs.push(`Opération ${id} introuvable.`);
+    return erreurs;
+  }
+
+  const texte = String(valeur ?? '').trim();
+
+  if (champ === 'date') {
+    if (!estDateValide(texte)) {
+      erreurs.push('La date doit être une date réelle au format AAAA-MM-JJ.');
+      return erreurs;
+    }
+    operation.date = texte;
+  } else if (champ === 'parcelle') {
+    if (texte === '') {
+      erreurs.push('La parcelle est obligatoire.');
+      return erreurs;
+    }
+    operation.parcelle = texte;
+  } else if (champ === 'culture') {
+    if (texte === '') {
+      erreurs.push('La culture est obligatoire.');
+      return erreurs;
+    }
+    operation.culture = texte;
+  } else if (champ === 'operation') {
+    if (!OPERATIONS.includes(texte)) {
+      erreurs.push(`L'opération doit être l'une de : ${OPERATIONS.join(', ')}.`);
+      return erreurs;
+    }
+    operation.operation = texte;
+  } else if (champ === 'coutFCFA') {
+    const cout = versNombre(texte);
+    if (Number.isNaN(cout) || cout < 0) {
+      erreurs.push('Le coût doit être un nombre positif ou nul (en FCFA).');
+      return erreurs;
+    }
+    operation.coutFCFA = cout;
+  }
+
+  return [];
 }
+
 
 // Renvoie une COPIE triée par coût décroissant : la plus chère d'abord.
 export function trierParCoutDecroissant(operations) {
