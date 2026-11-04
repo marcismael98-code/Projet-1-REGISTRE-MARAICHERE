@@ -31,5 +31,14 @@ export function syntheseParParcelle(operations) {
 // Renvoie { min, max } des coûts, ou null si la liste est vide.
 // Exemple : { min: 1500, max: 8000 }
 export function coutMinMax(operations) {
-  throw new Error('TODO : coder coutMinMax dans src/synthese.js');
+  if (operations.length === 0) {
+    return null;
+  }
+  let min = operations[0].coutFCFA;
+  let max = operations[0].coutFCFA;
+  for (const op of operations) {
+    if (op.coutFCFA < min) min = op.coutFCFA;
+    if (op.coutFCFA > max) max = op.coutFCFA;
+  }
+  return { min, max };
 }
